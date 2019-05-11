@@ -7,6 +7,7 @@ class Knight: public Figure
 {
 public:
     Knight(Color color);
+    ~Knight();
 };
 
 #endif // KNIGHT_H
