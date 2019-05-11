@@ -13,10 +13,10 @@ Generator::Generator(Board * board, QWidget *parent) :
     std::ifstream f{"board.txt"};
         board->read(f);
 
-    scene.setSceneRect(6, 6, 517, 517);
+    scene.setSceneRect(6, 6, 516, 515);
     scene.setItemIndexMethod(QGraphicsScene::NoIndex);
 
-    board->setPos(0,0);
+    board->setPos(4,3);
     scene.addItem(board);
 
     ui->graphicsView->setScene(&scene);

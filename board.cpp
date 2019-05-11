@@ -352,174 +352,52 @@ void Board::paint(QPainter *painter,
     for(int i = 0; i < 8; i++)
         for(int j = 0; j < 8; j++){
             // proveravamo o kojoj figuri je rec i koje je boje
-            if(m_board[i][j] == nullptr){
+            if((i + j) % 2 == 0)
+                painter->setBrush(QColor(142,113,193));
+            else
+                painter->setBrush(QColor(255,229,204));
+            QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
+            painter->drawRect(rectangle);
+
+            if(m_board[i][j] != nullptr){
                 // postavaljmo boju polja u zavisnosti od pozicije
-                if((i + j) % 2 == 0)
-                    painter->setBrush(QColor(142,113,193));
-                else
-                    painter->setBrush(QColor(255,229,204));
-                QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
-                painter->drawRect(rectangle);
-
-            }else{
                 if(dynamic_cast<const Pawn*>(m_board[i][j]) != nullptr
-                        && m_board[i][j]->color() == Color::black){
-                    // postavaljmo boju polja u zavisnosti od pozicije
-                    if((i + j) % 2 == 0)
-                        painter->setBrush(QColor(142,113,193));
-                    else
-                        painter->setBrush(QColor(255,229,204));
-
-                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
-                    painter->drawRect(rectangle);
-
+                        && m_board[i][j]->color() == Color::black)
                     painter->drawImage(rectangle, QImage(":/images/black_pawn.png"));
-                }
-
                 else if(dynamic_cast<const Pawn*>(m_board[i][j]) != nullptr
-                        && m_board[i][j]->color() == Color::white){
-                    // postavaljmo boju polja u zavisnosti od pozicije
-                    if((i + j) % 2 == 0)
-                        painter->setBrush(QColor(142,113,193));
-                    else
-                        painter->setBrush(QColor(255,229,204));
-
-                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
-                    painter->drawRect(rectangle);
-
+                        && m_board[i][j]->color() == Color::white)
                     painter->drawImage(rectangle, QImage(":/images/white_pawn.png"));
-                }
                 else if(dynamic_cast<const King*>(m_board[i][j]) != nullptr
-                        && m_board[i][j]->color() == Color::black){
-                    // postavaljmo boju polja u zavisnosti od pozicije
-                    if((i + j) % 2 == 0)
-                        painter->setBrush(QColor(142,113,193));
-                    else
-                        painter->setBrush(QColor(255,229,204));
-
-                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
-                    painter->drawRect(rectangle);
-
+                        && m_board[i][j]->color() == Color::black)
                     painter->drawImage(rectangle, QImage(":/images/black_king.png"));
-                }
                 else if(dynamic_cast<const King*>(m_board[i][j]) != nullptr
-                        && m_board[i][j]->color() == Color::white){
-                    // postavaljmo boju polja u zavisnosti od pozicije
-                    if((i + j) % 2 == 0)
-                        painter->setBrush(QColor(142,113,193));
-                    else
-                        painter->setBrush(QColor(255,229,204));
-
-                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
-                    painter->drawRect(rectangle);
-
+                        && m_board[i][j]->color() == Color::white)
                     painter->drawImage(rectangle, QImage(":/images/white_king.png"));
-                }
                 else if(dynamic_cast<const Queen*>(m_board[i][j]) != nullptr
-                        && m_board[i][j]->color() == Color::black){
-                    // postavaljmo boju polja u zavisnosti od pozicije
-                    if((i + j) % 2 == 0)
-                        painter->setBrush(QColor(142,113,193));
-                    else
-                        painter->setBrush(QColor(255,229,204));
-
-                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
-                    painter->drawRect(rectangle);
-
+                        && m_board[i][j]->color() == Color::black)
                     painter->drawImage(rectangle, QImage(":/images/black_queen.png"));
-                }
                 else if(dynamic_cast<const Queen*>(m_board[i][j]) != nullptr
-                        && m_board[i][j]->color() == Color::white){
-                    // postavaljmo boju polja u zavisnosti od pozicije
-                    if((i + j) % 2 == 0)
-                        painter->setBrush(QColor(142,113,193));
-                    else
-                        painter->setBrush(QColor(255,229,204));
-
-                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
-                    painter->drawRect(rectangle);
-
+                        && m_board[i][j]->color() == Color::white)
                     painter->drawImage(rectangle, QImage(":/images/white_queen.png"));
-                }
                 else if(dynamic_cast<const Knight*>(m_board[i][j]) != nullptr
-                        && m_board[i][j]->color() == Color::black){
-                    // postavaljmo boju polja u zavisnosti od pozicije
-                    if((i + j) % 2 == 0)
-                        painter->setBrush(QColor(142,113,193));
-                    else
-                        painter->setBrush(QColor(255,229,204));
-
-                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
-                    painter->drawRect(rectangle);
-
+                        && m_board[i][j]->color() == Color::black)
                     painter->drawImage(rectangle, QImage(":/images/black_knight.png"));
-                }
                 else if(dynamic_cast<const Knight*>(m_board[i][j]) != nullptr
-                        && m_board[i][j]->color() == Color::white){
-                    // postavaljmo boju polja u zavisnosti od pozicije
-                    if((i + j) % 2 == 0)
-                        painter->setBrush(QColor(142,113,193));
-                    else
-                        painter->setBrush(QColor(255,229,204));
-
-                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
-                    painter->drawRect(rectangle);
-
+                        && m_board[i][j]->color() == Color::white)
                     painter->drawImage(rectangle, QImage(":/images/white_knight.png"));
-                }
                 else if(dynamic_cast<const Bishop*>(m_board[i][j]) != nullptr
-                        && m_board[i][j]->color() == Color::black){
-                    // postavaljmo boju polja u zavisnosti od pozicije
-                    if((i + j) % 2 == 0)
-                        painter->setBrush(QColor(142,113,193));
-                    else
-                        painter->setBrush(QColor(255,229,204));
-
-                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
-                    painter->drawRect(rectangle);
-
+                        && m_board[i][j]->color() == Color::black)
                     painter->drawImage(rectangle, QImage(":/images/black_bishop.png"));
-                }
                 else if(dynamic_cast<const Bishop*>(m_board[i][j]) != nullptr
-                        && m_board[i][j]->color() == Color::white){
-                    // postavaljmo boju polja u zavisnosti od pozicije
-                    if((i + j) % 2 == 0)
-                        painter->setBrush(QColor(142,113,193));
-                    else
-                        painter->setBrush(QColor(255,229,204));
-
-                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
-                    painter->drawRect(rectangle);
-
+                        && m_board[i][j]->color() == Color::white)
                     painter->drawImage(rectangle, QImage(":/images/white_bishop.png"));
-                }
                 else if(dynamic_cast<const Rook*>(m_board[i][j]) != nullptr
-                        && m_board[i][j]->color() == Color::black){
-                    // postavaljmo boju polja u zavisnosti od pozicije
-                    if((i + j) % 2 == 0)
-                        painter->setBrush(QColor(142,113,193));
-                    else
-                        painter->setBrush(QColor(255,229,204));
-
-                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
-                    painter->drawRect(rectangle);
-
+                        && m_board[i][j]->color() == Color::black)
                     painter->drawImage(rectangle, QImage(":/images/black_rook.png"));
-                }
                 else if(dynamic_cast<const Rook*>(m_board[i][j]) != nullptr
-                        && m_board[i][j]->color() == Color::white){
-                    // postavaljmo boju polja u zavisnosti od pozicije
-                    if((i + j) % 2 == 0)
-                        painter->setBrush(QColor(142,113,193));
-                    else
-                        painter->setBrush(QColor(255,229,204));
-
-                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
-                    painter->drawRect(rectangle);
-
+                        && m_board[i][j]->color() == Color::white)
                     painter->drawImage(rectangle, QImage(":/images/white_rook.png"));
-                }
-           }//prvi else
+            }
         }//for
 }//painter
 
