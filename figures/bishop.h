@@ -6,7 +6,7 @@
 class Bishop: public Figure
 {
 public:
-    Bishop();
+    Bishop(Color color);
 };
 
 #endif // BISHOP_H

@@ -1,6 +1,8 @@
 #include "figure.h"
 
-Figure::Figure()
-{
+Figure::Figure(Color color)
+    : m_color(color)
+{}
 
-}
+Figure::~Figure()
+{}

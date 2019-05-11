@@ -6,7 +6,7 @@
 class Pawn: public Figure
 {
 public:
-    Pawn();
+    Pawn(Color color);
 };
 
 #endif // PAWN_H

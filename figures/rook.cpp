@@ -1,6 +1,5 @@
 #include "rook.h"
 
-Rook::Rook()
-{
-
-}
+Rook::Rook(Color color)
+    : Figure(color)
+{}

@@ -37,6 +37,7 @@ SOURCES += \
         generator.cpp
 
 HEADERS += \
+        color.h \
         field.h \
         figures/bishop.h \
         figures/figure.h \

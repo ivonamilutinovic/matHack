@@ -2,6 +2,7 @@
 #define FIELD_H
 
 #include <vector>
+#include <memory>
 #include "figures/figure.h"
 
 class Field
@@ -18,7 +19,7 @@ public:
 private:
     int m_rank; // red (od 1 do 8)
     char m_file; // linija (od 'a' do 'h')
-    Figure *m_occupant;
+    std::unique_ptr<Figure> m_occupant;
 };
 
 #endif // FIELD_H

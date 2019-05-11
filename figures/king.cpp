@@ -1,6 +1,5 @@
 #include "king.h"
 
-King::King()
-{
-
-}
+King::King(Color color)
+    : Figure(color)
+{}

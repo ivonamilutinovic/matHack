@@ -1,6 +1,5 @@
-#include "figures/pawn.h"
+#include "pawn.h"
 
-Pawn::Pawn()
-{
-
-}
+Pawn::Pawn(Color color)
+    : Figure(color)
+{}

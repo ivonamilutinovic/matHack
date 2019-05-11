@@ -1,6 +1,5 @@
-#include "figures/knight.h"
+#include "knight.h"
 
-Knight::Knight()
-{
-
-}
+Knight::Knight(Color color)
+    : Figure(color)
+{}

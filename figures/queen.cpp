@@ -1,6 +1,5 @@
 #include "queen.h"
 
-Queen::Queen()
-{
-
-}
+Queen::Queen(Color color)
+    : Figure(color)
+{}

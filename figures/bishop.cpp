@@ -1,6 +1,5 @@
 #include "bishop.h"
 
-Bishop::Bishop()
-{
-
-}
+Bishop::Bishop(Color color)
+    : Figure(color)
+{}
