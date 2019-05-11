@@ -348,9 +348,6 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
 void Board::paint(QPainter *painter,
                    const QStyleOptionGraphicsItem *,
                    QWidget *){
-
-
-
     // za svaki element matrice proveravamo da li je prazan
     for(int i = 0; i < 8; i++)
         for(int j = 0; j < 8; j++){
@@ -361,7 +358,7 @@ void Board::paint(QPainter *painter,
                     painter->setBrush(QColor(142,113,193));
                 else
                     painter->setBrush(QColor(255,229,204));
-                QRect rectangle = QRect((7 - i)*WIDTH, j*WIDTH, WIDTH, WIDTH);
+                QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
                 painter->drawRect(rectangle);
 
             }else{
@@ -373,7 +370,7 @@ void Board::paint(QPainter *painter,
                     else
                         painter->setBrush(QColor(255,229,204));
 
-                    QRect rectangle = QRect((7 - i)*WIDTH, j*WIDTH, WIDTH, WIDTH);
+                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
                     painter->drawRect(rectangle);
 
                     painter->drawImage(rectangle, QImage(":/images/black_pawn.png"));
@@ -387,7 +384,7 @@ void Board::paint(QPainter *painter,
                     else
                         painter->setBrush(QColor(255,229,204));
 
-                    QRect rectangle = QRect((7 - i)*WIDTH, j*WIDTH, WIDTH, WIDTH);
+                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
                     painter->drawRect(rectangle);
 
                     painter->drawImage(rectangle, QImage(":/images/white_pawn.png"));
@@ -400,7 +397,7 @@ void Board::paint(QPainter *painter,
                     else
                         painter->setBrush(QColor(255,229,204));
 
-                    QRect rectangle = QRect((7 - i)*WIDTH, j*WIDTH, WIDTH, WIDTH);
+                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
                     painter->drawRect(rectangle);
 
                     painter->drawImage(rectangle, QImage(":/images/black_king.png"));
@@ -413,7 +410,7 @@ void Board::paint(QPainter *painter,
                     else
                         painter->setBrush(QColor(255,229,204));
 
-                    QRect rectangle = QRect((7 - i)*WIDTH, j*WIDTH, WIDTH, WIDTH);
+                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
                     painter->drawRect(rectangle);
 
                     painter->drawImage(rectangle, QImage(":/images/white_king.png"));
@@ -426,7 +423,7 @@ void Board::paint(QPainter *painter,
                     else
                         painter->setBrush(QColor(255,229,204));
 
-                    QRect rectangle = QRect((7 - i)*WIDTH, j*WIDTH, WIDTH, WIDTH);
+                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
                     painter->drawRect(rectangle);
 
                     painter->drawImage(rectangle, QImage(":/images/black_queen.png"));
@@ -439,7 +436,7 @@ void Board::paint(QPainter *painter,
                     else
                         painter->setBrush(QColor(255,229,204));
 
-                    QRect rectangle = QRect((7 - i)*WIDTH, j*WIDTH, WIDTH, WIDTH);
+                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
                     painter->drawRect(rectangle);
 
                     painter->drawImage(rectangle, QImage(":/images/white_queen.png"));
@@ -452,7 +449,7 @@ void Board::paint(QPainter *painter,
                     else
                         painter->setBrush(QColor(255,229,204));
 
-                    QRect rectangle = QRect((7 - i)*WIDTH, j*WIDTH, WIDTH, WIDTH);
+                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
                     painter->drawRect(rectangle);
 
                     painter->drawImage(rectangle, QImage(":/images/black_knight.png"));
@@ -465,7 +462,7 @@ void Board::paint(QPainter *painter,
                     else
                         painter->setBrush(QColor(255,229,204));
 
-                    QRect rectangle = QRect((7 - i)*WIDTH, j*WIDTH, WIDTH, WIDTH);
+                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
                     painter->drawRect(rectangle);
 
                     painter->drawImage(rectangle, QImage(":/images/white_knight.png"));
@@ -478,7 +475,7 @@ void Board::paint(QPainter *painter,
                     else
                         painter->setBrush(QColor(255,229,204));
 
-                    QRect rectangle = QRect((7 - i)*WIDTH, j*WIDTH, WIDTH, WIDTH);
+                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
                     painter->drawRect(rectangle);
 
                     painter->drawImage(rectangle, QImage(":/images/black_bishop.png"));
@@ -491,7 +488,7 @@ void Board::paint(QPainter *painter,
                     else
                         painter->setBrush(QColor(255,229,204));
 
-                    QRect rectangle = QRect((7 - i)*WIDTH, j*WIDTH, WIDTH, WIDTH);
+                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
                     painter->drawRect(rectangle);
 
                     painter->drawImage(rectangle, QImage(":/images/white_bishop.png"));
@@ -504,7 +501,7 @@ void Board::paint(QPainter *painter,
                     else
                         painter->setBrush(QColor(255,229,204));
 
-                    QRect rectangle = QRect((7 - i)*WIDTH, j*WIDTH, WIDTH, WIDTH);
+                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
                     painter->drawRect(rectangle);
 
                     painter->drawImage(rectangle, QImage(":/images/black_rook.png"));
@@ -517,7 +514,7 @@ void Board::paint(QPainter *painter,
                     else
                         painter->setBrush(QColor(255,229,204));
 
-                    QRect rectangle = QRect((7 - i)*WIDTH, j*WIDTH, WIDTH, WIDTH);
+                    QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
                     painter->drawRect(rectangle);
 
                     painter->drawImage(rectangle, QImage(":/images/white_rook.png"));
