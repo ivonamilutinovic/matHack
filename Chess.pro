@@ -48,7 +48,8 @@ HEADERS += \
         figures/rook.h \
         generator.h \
     board.h \
-    figures/figure_types.h
+    figures/figure_types.h \
+    color.h
 
 
 FORMS += \
