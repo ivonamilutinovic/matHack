@@ -25,10 +25,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        field.cpp \
+        figures/bishop.cpp \
+        figures/figure.cpp \
+        figures/king.cpp \
+        figures/knight.cpp \
+        figures/pawn.cpp \
+        figures/queen.cpp \
+        figures/rook.cpp \
         main.cpp \
         generator.cpp
 
 HEADERS += \
+        field.h \
+        figures/bishop.h \
+        figures/figure.h \
+        figures/king.h \
+        figures/knight.h \
+        figures/pawn.h \
+        figures/queen.h \
+        figures/rook.h \
         generator.h
 
 FORMS += \
