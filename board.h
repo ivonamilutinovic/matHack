@@ -1,11 +1,17 @@
 #ifndef BOARD_H
 #define BOARD_H
 
+#include <QGraphicsWidget>
+#include <QPainter>
+#include <QStyleOption>
 #include "figures/figure.h"
 #include "field.h"
 #include <memory>
 
-class Board
+#define WIDTH 65
+#define LINE_WIDTH 1
+
+class Board : public QGraphicsWidget
 {
 public:
     Board();
@@ -14,6 +20,13 @@ public:
     void remove(const Field & f);
     /* funkcije */
     std::vector<Field> moves(const Field & f) const;
+
+    void paint(QPainter *painter,
+               const QStyleOptionGraphicsItem *option,
+               QWidget *widget) override;
+
+
+
 
 private:
    const Figure * m_board[8][8];

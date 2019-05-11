@@ -3,6 +3,7 @@
 #include "figures/figure.h"
 #include "figures/figure_types.h"
 
+
 Board::Board()
 {
     for (int i = 0; i < 8; ++i)
@@ -109,4 +110,28 @@ std::vector<Field> Board::moves(const Field &f) const {
         }
     }
     return fields;
+}
+
+void Board::paint(QPainter *painter,
+                   const QStyleOptionGraphicsItem *option,
+                   QWidget *){
+
+
+
+    // za svaki element matrice proveravamo da li je prazan
+    for(int i = 0; i < 8; i++)
+        for(int j = 0; j < 8; j++){
+            // proveravamo o kojoj figuri je rec i koje je boje
+            if(m_board[i][j] != nullptr && dynamic_cast<const Pawn*>(m_board[i][j]) != nullptr
+                    && m_board[i][j]->color() == Color::black){
+                // postavaljmo boju polja u zavisnosti od pozicije
+                if((i + j) % 2 == 0)
+                    painter->setBrush(QColor(179,119,51));
+                else
+                    painter->setBrush(QColor(179,119,51));
+
+                QRect rectangle = QRect((7 - i)*WIDTH, j*WIDTH, WIDTH, WIDTH);
+                painter->drawRect(rectangle);
+            }
+        }
 }

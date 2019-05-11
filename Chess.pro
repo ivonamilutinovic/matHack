@@ -38,7 +38,6 @@ SOURCES += \
     board.cpp
 
 HEADERS += \
-        color.h \
         field.h \
         figures/bishop.h \
         figures/figure.h \
@@ -50,6 +49,7 @@ HEADERS += \
         generator.h \
     board.h \
     figures/figure_types.h
+
 
 FORMS += \
         generator.ui

@@ -2,6 +2,9 @@
 #define GENERATOR_H
 
 #include <QMainWindow>
+#include <QGraphicsScene>
+
+#include "board.h"
 
 namespace Ui {
 class Generator;
@@ -17,6 +20,8 @@ public:
 
 private:
     Ui::Generator *ui;
+    QGraphicsScene scene;
+    Board board;
 };
 
 #endif // GENERATOR_H
