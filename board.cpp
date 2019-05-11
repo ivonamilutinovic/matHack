@@ -64,47 +64,71 @@ std::vector<Field> Board::moves(const Field &f) const {
         if (dynamic_cast<const Rook*>(fig) != nullptr || dynamic_cast<const Queen*>(fig) != nullptr) {
             /* proverava dokle moze da ide ulevo po tom redu */
             for (int i = f.rank() - 1, j = static_cast<int>(f.file() - 'a') - 1; j >= 0; --j)
-                if (!Figure::isColor(m_board[i][j], fig->color()))
+                if (!Figure::isColor(m_board[i][j], fig->color())) {
                     fields.emplace_back(i + 1, j + 'a');
+                    if (m_board[i][j] != nullptr)
+                        break;
+                }
                 else break;
             /* proverava dokle moze da ide udesno po toj red */
             for (int i = f.rank() - 1, j = static_cast<int>(f.file() - 'a') + 1; j < 8; ++j)
-                if (!Figure::isColor(m_board[i][j], fig->color()))
+                if (!Figure::isColor(m_board[i][j], fig->color())) {
                     fields.emplace_back(i + 1, j + 'a');
+                    if (m_board[i][j] != nullptr)
+                        break;
+                }
                 else break;
 
             /* proverava dokle moze da ide nadole po toj liniji */
             for (int i = f.rank() - 2, j = static_cast<int>(f.file() - 'a'); i >= 0; --i)
-                if (!Figure::isColor(m_board[i][j], fig->color()))
+                if (!Figure::isColor(m_board[i][j], fig->color())) {
                     fields.emplace_back(i + 1, j + 'a');
+                    if (m_board[i][j] != nullptr)
+                        break;
+                }
                 else break;
             /* proverava dokle moze da ide nagore po toj liniji */
             for (int i = f.rank(), j = static_cast<int>(f.file() - 'a'); i < 8; ++i)
-                if (!Figure::isColor(m_board[i][j], fig->color()))
+                if (!Figure::isColor(m_board[i][j], fig->color())) {
                     fields.emplace_back(i + 1, j + 'a');
+                    if (m_board[i][j] != nullptr)
+                        break;
+                }
                 else break;
         }
         if (dynamic_cast<const Bishop*>(fig) != nullptr || dynamic_cast<const Queen*>(fig) != nullptr) {
             /* proverava dokle moze da ide ulevo i nadole po dijagonali */
             for (int i = f.rank() - 2, j = static_cast<int>(f.file() - 'a') - 1; i >=0 && j >= 0; --i, --j)
-                if (!Figure::isColor(m_board[i][j], fig->color()))
+                if (!Figure::isColor(m_board[i][j], fig->color())) {
                     fields.emplace_back(i + 1, j + 'a');
+                    if (m_board[i][j] != nullptr)
+                        break;
+                }
                 else break;
             /* proverava dokle moze da ide udesno i nadole po dijagonali */
             for (int i = f.rank() - 2, j = static_cast<int>(f.file() - 'a') + 1; i >= 0 && j < 8; --i, ++j)
-                if (!Figure::isColor(m_board[i][j], fig->color()))
+                if (!Figure::isColor(m_board[i][j], fig->color())) {
                     fields.emplace_back(i + 1, j + 'a');
+                    if (m_board[i][j] != nullptr)
+                        break;
+                }
                 else break;
 
             /* proverava dokle moze da ide ulevo i nagore po dijagonali */
             for (int i = f.rank(), j = static_cast<int>(f.file() - 'a') - 1; i < 8 && j >= 0; ++i, --j)
-                if (!Figure::isColor(m_board[i][j], fig->color()))
+                if (!Figure::isColor(m_board[i][j], fig->color())) {
                     fields.emplace_back(i + 1, j + 'a');
+                    if (m_board[i][j] != nullptr)
+                        break;
+                }
                 else break;
             /* proverava dokle moze da ide udesno i nagore po dijagonali */
             for (int i = f.rank(), j = static_cast<int>(f.file() - 'a') + 1; i < 8 && j < 8; ++i, ++j)
-                if (!Figure::isColor(m_board[i][j], fig->color()))
+                if (!Figure::isColor(m_board[i][j], fig->color())) {
                     fields.emplace_back(i + 1, j + 'a');
+                    if (m_board[i][j] != nullptr)
+                        break;
+                }
                 else break;
         }
     }

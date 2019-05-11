@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     Board board;
     for (int j = 0; j < 8; ++j)
     {
-        board.add(new Pawn(Color::white), Field(3, static_cast<char>('a' + j)));
+        //board.add(new Pawn(Color::white), Field(3, static_cast<char>('a' + j)));
         board.add(new Pawn(Color::black), Field(7, static_cast<char>('a' + j)));
     }
     board.add(new King(Color::white), Field(1, 'e'));
@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     board.add(new Rook(Color::black), Field(8, 'a'));
     board.add(new Rook(Color::white), Field(1, 'h'));
     board.add(new Rook(Color::black), Field(8, 'h'));
-    auto fields = board.moves(Field(1, 'e'));
+    auto fields = board.moves(Field(1, 'd'));
     for (const auto &field: fields)
         std::cout << field.file() << field.rank() << std::endl;
     return a.exec();
