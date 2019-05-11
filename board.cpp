@@ -551,3 +551,8 @@ void Board::read(std::istream &f)
         }
     }
 }
+
+const std::shared_ptr<Figure>& Board::get(int rank, char file) const
+{
+    return m_board[rank - 1][static_cast<int>(file - 'a')];
+}

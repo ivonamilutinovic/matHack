@@ -31,6 +31,7 @@ public:
     std::vector<Field> legalMoves(const Field &f) const;
     Field findKing(Color color) const;
     bool isCheck(Color color) const; // isCheck(white) proverava da li je dat sah belom
+    const std::shared_ptr<Figure>& get(int rank, char file) const;
 private:
    std::shared_ptr<Figure> m_board[8][8];
    std::vector<Field> moves(const Field & f, bool legal) const;
