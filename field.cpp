@@ -76,3 +76,8 @@ std::vector<Field> Field::adjacentFields() const
                 result.push_back(Field(i, j));
     return result;
 }
+
+bool Field::operator==(const Field &rhs) const
+{
+    return (m_rank == rhs.m_rank) && (m_file == rhs.m_file);
+}

@@ -24,42 +24,6 @@ Generator::Generator(Board * board, QWidget *parent) :
 
 }
 
-void Board::read(std::istream &f)
-{
-    std::string string;
-    while(f >> string)
-    {
-        Color color = std::islower(string[0]) ? Color::black : Color::white;
-        switch (string.front())
-        {
-        case 'q':
-        case 'Q':
-            add(new Queen(color), Field(string[2] - '0', string[1]));
-            break;
-        case 'k':
-        case 'K':
-            add(new King(color), Field(string[2] - '0', string[1]));
-            break;
-        case 'b':
-        case 'B':
-            add(new Bishop(color), Field(string[2] - '0', string[1]));
-            break;
-        case 'n':
-        case 'N':
-            add(new Knight(color), Field(string[2] - '0', string[1]));
-            break;
-        case 'r':
-        case 'R':
-            add(new Rook(color), Field(string[2] - '0', string[1]));
-            break;
-        case 'p':
-        case 'P':
-            add(new Pawn(color), Field(string[2] - '0', string[1]));
-            break;
-        }
-    }
-}
-
 Generator::~Generator()
 {
     delete ui;

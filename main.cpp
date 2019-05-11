@@ -3,7 +3,7 @@
 #include "board.h"
 #include "figures/figure_types.h"
 #include <iostream>
-#include "generator.h"
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
