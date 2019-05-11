@@ -17,5 +17,6 @@ int main(int argc, char *argv[])
     auto fields = board.legalMoves(Field(1, 'd'));
     for (const auto &field: fields)
         std::cout << field.file() << field.rank() << std::endl;
+    board.free();
     return a.exec();
 }

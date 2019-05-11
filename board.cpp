@@ -13,6 +13,26 @@ Board::Board()
             m_board[i][j] = nullptr;
 }
 
+Board::~Board()
+{
+    for (int i = 0; i < 8; ++i)
+        for (int j = 0; j < 8; ++j)
+            m_board[i][j] = nullptr;
+}
+
+Board::Board(const Board &other)
+{
+    for (int i = 0; i < 8; ++i)
+        for (int j = 0; j < 8; ++j)
+            m_board[i][j] = other.m_board[i][j];
+}
+
+Board& Board::operator=(Board board)
+{
+    std::swap(m_board, board.m_board);
+    return *this;
+}
+
 void Board::add(const Figure * fig, const Field & f) {
     m_board[f.rank() - 1][f.file() - 'a'] = fig;
 }
@@ -359,4 +379,11 @@ void Board::read(std::istream &f)
             break;
         }
     }
+}
+
+void Board::free()
+{
+    for (int i = 0; i < 8; ++i)
+        for (int j = 0; j < 8; ++j)
+            delete m_board[i][j];
 }
