@@ -2,7 +2,8 @@
 
 Field::Field(int rank, char file)
     : m_rank(rank),
-      m_file(file)
+      m_file(file),
+      m_occupant(nullptr)
 {}
 
 std::vector<Field> Field::sameRankFields() const
@@ -64,5 +65,15 @@ std::vector<Field> Field::knightJumpFields() const
         result.push_back(Field(m_rank + 1, m_file - 2));
     if (m_rank + 1 <= 8 && m_file + 2 <= 'h')
         result.push_back(Field(m_rank + 1, m_file + 2));
+    return result;
+}
+
+std::vector<Field> Field::adjacentFields() const
+{
+    std::vector<Field> result;
+    for (int i = (m_rank > 1 ? m_rank - 1 : m_rank); i <= (m_rank < 8 ? m_rank + 1 : m_rank); ++i)
+        for (char j = (m_file > 'a' ? m_file - 1 : m_file); j <= (m_file < 'h' ? m_file + 1 : m_file); ++j)
+            if (i != m_rank || j != m_file)
+                result.push_back(Field(i, j));
     return result;
 }

@@ -2,18 +2,22 @@
 #define FIELD_H
 
 #include <vector>
+#include "figures/figure.h"
 
 class Field
 {
 public:
     Field(int rank, char file);
-    std::vector<Field> sameRankFields() const;
-    std::vector<Field> sameFileFields() const;
-    std::vector<Field> sameDiagonalFields() const;
-    std::vector<Field> knightJumpFields() const;
+    std::vector<Field> sameRankFields() const; // za pomeranje topa i kraljice
+    std::vector<Field> sameFileFields() const; // za pomeranje topa i kraljice
+    std::vector<Field> sameDiagonalFields() const; // za pomeranje lovca i kraljice
+    std::vector<Field> knightJumpFields() const; // za pomeranje konja
+    std::vector<Field> adjacentFields() const; // za pomeranje kralja
+
 private:
     int m_rank; // red (od 1 do 8)
     char m_file; // linija (od 'a' do 'h')
+    Figure *m_occupant;
 };
 
 #endif // FIELD_H
