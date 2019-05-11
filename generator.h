@@ -15,13 +15,14 @@ class Generator : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit Generator(QWidget *parent = nullptr);
+    explicit Generator(Board* board, QWidget *parent = nullptr);
     ~Generator();
+
 
 private:
     Ui::Generator *ui;
     QGraphicsScene scene;
-    Board board;
+    Board *board;
 };
 
 #endif // GENERATOR_H
