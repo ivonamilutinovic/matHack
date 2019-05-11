@@ -21,8 +21,8 @@ void Board::remove(const Field & f) {
     m_board[f.rank() - 1][f.file() - 'a'] = nullptr;
 }
 
-std::vector<Field> Board::moves(const Field &f) const {
-    return theUgliestHackInTheHistoryOfUglyHacks(f, false);
+std::vector<Field> Board::pseudolegalMoves(const Field &f) const {
+    return moves(f, false);
 }
 
 Field Board::findKing(Color color) const
@@ -41,7 +41,7 @@ bool Board::isCheck(Color color) const
         for (int j = 0; j < 8; ++j)
             if (m_board[i][j] != nullptr && m_board[i][j]->color() != color)
             {
-                std::vector<Field> fields = moves(Field(i + 1, static_cast<char>(j + 'a')));
+                std::vector<Field> fields = pseudolegalMoves(Field(i + 1, static_cast<char>(j + 'a')));
                 if (std::find(fields.cbegin(), fields.cend(), king) != fields.cend())
                     return true;
             }
@@ -50,10 +50,10 @@ bool Board::isCheck(Color color) const
 
 std::vector<Field> Board::legalMoves(const Field &f) const
 {
-    return theUgliestHackInTheHistoryOfUglyHacks(f, true);
+    return moves(f, true);
 }
 
-std::vector<Field> Board::theUgliestHackInTheHistoryOfUglyHacks(const Field &f, bool legal) const
+std::vector<Field> Board::moves(const Field &f, bool legal) const
 {
     const Figure *fig = m_board[f.rank() - 1][f.file() - 'a'];
     std::vector<Field> fields;
