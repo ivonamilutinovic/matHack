@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        field.cpp \
         figures/bishop.cpp \
         figures/figure.cpp \
         figures/king.cpp \
@@ -36,6 +37,7 @@ SOURCES += \
         generator.cpp
 
 HEADERS += \
+        field.h \
         figures/bishop.h \
         figures/figure.h \
         figures/king.h \
