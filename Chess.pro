@@ -26,6 +26,7 @@ CONFIG += c++11
 
 SOURCES += \
         figures/bishop.cpp \
+        figures/figure.cpp \
         figures/king.cpp \
         figures/knight.cpp \
         figures/pawn.cpp \
@@ -36,6 +37,7 @@ SOURCES += \
 
 HEADERS += \
         figures/bishop.h \
+        figures/figure.h \
         figures/king.h \
         figures/knight.h \
         figures/pawn.h \

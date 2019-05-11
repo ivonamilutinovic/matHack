@@ -1,8 +1,9 @@
 #ifndef PAWN_H
 #define PAWN_H
 
+#include "figure.h"
 
-class Pawn
+class Pawn: public Figure
 {
 public:
     Pawn();

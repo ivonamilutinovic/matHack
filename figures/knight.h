@@ -1,8 +1,9 @@
 #ifndef KNIGHT_H
 #define KNIGHT_H
 
+#include "figure.h"
 
-class Knight
+class Knight: public Figure
 {
 public:
     Knight();
