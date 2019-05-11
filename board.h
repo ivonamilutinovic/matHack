@@ -32,6 +32,7 @@ public:
     bool isCheck(Color color) const; // isCheck(white) proverada da li je dat sah belom
     std::vector<Field> legalMoves(const Field &f) const;
     void free();
+
 private:
    const Figure * m_board[8][8];
    std::vector<Field> moves(const Field & f, bool legal) const;
