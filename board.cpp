@@ -348,10 +348,10 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
 void Board::paint(QPainter *painter,
                    const QStyleOptionGraphicsItem *,
                    QWidget *){
-    // za svaki element matrice proveravamo da li je prazan
+
     for(int i = 0; i < 8; i++)
         for(int j = 0; j < 8; j++){
-            // proveravamo o kojoj figuri je rec i koje je boje
+            // postavaljmo boju polja u zavisnosti od pozicije
             if((i + j) % 2 == 0)
                 painter->setBrush(QColor(142,113,193));
             else
@@ -359,8 +359,8 @@ void Board::paint(QPainter *painter,
             QRect rectangle = QRect(j*WIDTH, (7-i)*WIDTH, WIDTH, WIDTH);
             painter->drawRect(rectangle);
 
+            // proveravamo o kojoj figuri je rec i koje je boje
             if(m_board[i][j] != nullptr){
-                // postavaljmo boju polja u zavisnosti od pozicije
                 if(dynamic_cast<const Pawn*>(m_board[i][j]) != nullptr
                         && m_board[i][j]->color() == Color::black)
                     painter->drawImage(rectangle, QImage(":/images/black_pawn.png"));
@@ -398,8 +398,8 @@ void Board::paint(QPainter *painter,
                         && m_board[i][j]->color() == Color::white)
                     painter->drawImage(rectangle, QImage(":/images/white_rook.png"));
             }
-        }//for
-}//painter
+        }
+}
 
 void Board::read(std::istream &f)
 {
