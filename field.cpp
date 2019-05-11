@@ -2,8 +2,7 @@
 
 Field::Field(int rank, char file)
     : m_rank(rank),
-      m_file(file),
-      m_occupant(nullptr)
+      m_file(file)
 {}
 
 std::vector<Field> Field::sameRankFields() const

@@ -6,3 +6,7 @@ Figure::Figure(Color color)
 
 Figure::~Figure()
 {}
+
+bool Figure::isColor(const Figure * fig, Color color) {
+    return fig != nullptr && fig->color() == color;
+}
