@@ -12,6 +12,10 @@ Generator::Generator(QWidget *parent) :
     std::ifstream f{"board.txt"};
     board.read(f);
 
+    auto legal = board.legalMoves(Field(1, 'd'));
+    for (const auto &move: legal)
+        std::cout << move << std::endl;
+
     scene.setSceneRect(6, 6, 516, 515);
     scene.setItemIndexMethod(QGraphicsScene::NoIndex);
 

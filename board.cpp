@@ -5,8 +5,9 @@
 #include <vector>
 #include <algorithm>
 
-Board::Board()
-    : QGraphicsWidget()
+Board::Board(Color turn)
+    : QGraphicsWidget(),
+      m_turn{turn}
 {
     for (int i = 0; i < 8; ++i)
         for (int j = 0; j < 8; ++j)
@@ -14,7 +15,8 @@ Board::Board()
 }
 
 Board::Board(const Board &other)
-    : QGraphicsWidget()
+    : QGraphicsWidget(),
+      m_turn{other.m_turn}
 {
     for (int i = 0; i < 8; ++i)
         for (int j = 0; j < 8; ++j)
@@ -23,7 +25,8 @@ Board::Board(const Board &other)
 
 Board& Board::operator=(Board other)
 {
-    swap(m_board, other.m_board);
+    std::swap(m_board, other.m_board);
+    std::swap(m_turn, other.m_turn);
     return *this;
 }
 
@@ -35,7 +38,9 @@ void Board::remove(const Field & f) {
 }
 
 std::vector<Field> Board::pseudolegalMoves(const Field &f) const {
-    return moves(f, false);
+    if (Figure::isColor(m_board[f.rank() - 1][f.file() - 'a'].get(), m_turn))
+        return moves(f, false);
+    return {};
 }
 
 Field Board::findKing(Color color) const
@@ -63,7 +68,9 @@ bool Board::isCheck(Color color) const
 
 std::vector<Field> Board::legalMoves(const Field &f) const
 {
-    return moves(f, true);
+    if (Figure::isColor(m_board[f.rank() - 1][f.file() - 'a'], m_turn))
+        return moves(f, true);
+    return {};
 }
 
 std::vector<Field> Board::moves(const Field &f, bool legal) const
@@ -79,6 +86,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                     Board temp = *this; // plitko kopiranje
                     temp.m_board[f.rank() - 2][f.file() - 'a'] = fig;
                     temp.m_board[f.rank() - 1][f.file() - 'a'] = nullptr;
+                    temp.m_turn = temp.m_turn == Color::white ? Color::black : Color::white;
                     if (!temp.isCheck(fig->color()))
                         fields.emplace_back(f.rank() - 1, f.file());
                 }
@@ -89,6 +97,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                         Board temp = *this; // plitko kopiranje
                         temp.m_board[f.rank() - 3][f.file() - 'a'] = fig;
                         temp.m_board[f.rank() - 1][f.file() - 'a'] = nullptr;
+                        temp.m_turn = temp.m_turn == Color::white ? Color::black : Color::white;
                         if (!temp.isCheck(fig->color()))
                             fields.emplace_back(f.rank() - 2, f.file());
                     }
@@ -101,6 +110,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                     Board temp = *this; // plitko kopiranje
                     temp.m_board[f.rank() - 2][f.file() - 'a' - 1] = fig;
                     temp.m_board[f.rank() - 1][f.file() - 'a'] = nullptr;
+                    temp.m_turn = temp.m_turn == Color::white ? Color::black : Color::white;
                     if (!temp.isCheck(fig->color()))
                         fields.emplace_back(f.rank() - 1, f.file() - 1);
                 }
@@ -112,6 +122,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                     Board temp = *this; // plitko kopiranje
                     temp.m_board[f.rank() - 2][f.file() - 'a' + 1] = fig;
                     temp.m_board[f.rank() - 1][f.file() - 'a'] = nullptr;
+                    temp.m_turn = temp.m_turn == Color::white ? Color::black : Color::white;
                     if (!temp.isCheck(fig->color()))
                         fields.emplace_back(f.rank() - 1, f.file() + 1);
                 }
@@ -124,6 +135,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                     Board temp = *this; // plitko kopiranje
                     temp.m_board[f.rank()][f.file() - 'a'] = fig;
                     temp.m_board[f.rank() - 1][f.file() - 'a'] = nullptr;
+                    temp.m_turn = temp.m_turn == Color::white ? Color::black : Color::white;
                     if (!temp.isCheck(fig->color()))
                         fields.emplace_back(f.rank() + 1, f.file());
                 }
@@ -134,6 +146,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                         Board temp = *this; // plitko kopiranje
                         temp.m_board[f.rank() + 1][f.file() - 'a'] = fig;
                         temp.m_board[f.rank() - 1][f.file() - 'a'] = nullptr;
+                        temp.m_turn = temp.m_turn == Color::white ? Color::black : Color::white;
                         if (!temp.isCheck(fig->color()))
                             fields.emplace_back(f.rank() + 2, f.file());
                     }
@@ -146,6 +159,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                     Board temp = *this; // plitko kopiranje
                     temp.m_board[f.rank()][f.file() - 'a' - 1] = fig;
                     temp.m_board[f.rank() - 1][f.file() - 'a'] = nullptr;
+                    temp.m_turn = temp.m_turn == Color::white ? Color::black : Color::white;
                     if (!temp.isCheck(fig->color()))
                         fields.emplace_back(f.rank() + 1, f.file() - 1);
                 }
@@ -157,6 +171,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                     Board temp = *this; // plitko kopiranje
                     temp.m_board[f.rank()][f.file() - 'a' + 1] = fig;
                     temp.m_board[f.rank() - 1][f.file() - 'a'] = nullptr;
+                    temp.m_turn = temp.m_turn == Color::white ? Color::black : Color::white;
                     if (!temp.isCheck(fig->color()))
                         fields.emplace_back(f.rank() + 1, f.file() + 1);
                 }
@@ -175,6 +190,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                     Board temp = *this; // plitko kopiranje
                     temp.m_board[i][j] = fig;
                     temp.m_board[f.rank() - 1][f.file() - 'a'] = nullptr;
+                    temp.m_turn = temp.m_turn == Color::white ? Color::black : Color::white;
                     if (!temp.isCheck(fig->color()))
                         fields.push_back(field);
                 }
@@ -193,6 +209,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                     Board temp = *this; // plitko kopiranje
                     temp.m_board[i][j] = fig;
                     temp.m_board[f.rank() - 1][f.file() - 'a'] = nullptr;
+                    temp.m_turn = temp.m_turn == Color::white ? Color::black : Color::white;
                     if (!temp.isCheck(fig->color()))
                         fields.push_back(field);
                 }
@@ -209,6 +226,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                         Board temp = *this; // plitko kopiranje
                         temp.m_board[i][j] = fig;
                         temp.m_board[f.rank() - 1][f.file() - 'a'] = nullptr;
+                        temp.m_turn = temp.m_turn == Color::white ? Color::black : Color::white;
                         if (!temp.isCheck(fig->color()))
                             fields.emplace_back(i + 1, j + 'a');
                     }
@@ -225,6 +243,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                         Board temp = *this; // plitko kopiranje
                         temp.m_board[i][j] = fig;
                         temp.m_board[f.rank() - 1][f.file() - 'a'] = nullptr;
+                        temp.m_turn = temp.m_turn == Color::white ? Color::black : Color::white;
                         if (!temp.isCheck(fig->color()))
                             fields.emplace_back(i + 1, j + 'a');
                     }
@@ -242,6 +261,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                         Board temp = *this; // plitko kopiranje
                         temp.m_board[i][j] = fig;
                         temp.m_board[f.rank() - 1][f.file() - 'a'] = nullptr;
+                        temp.m_turn = temp.m_turn == Color::white ? Color::black : Color::white;
                         if (!temp.isCheck(fig->color()))
                             fields.emplace_back(i + 1, j + 'a');
                     }
@@ -258,6 +278,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                         Board temp = *this; // plitko kopiranje
                         temp.m_board[i][j] = fig;
                         temp.m_board[f.rank() - 1][f.file() - 'a'] = nullptr;
+                        temp.m_turn = temp.m_turn == Color::white ? Color::black : Color::white;
                         if (!temp.isCheck(fig->color()))
                             fields.emplace_back(i + 1, j + 'a');
                     }
@@ -276,6 +297,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                         Board temp = *this; // plitko kopiranje
                         temp.m_board[i][j] = fig;
                         temp.m_board[f.rank() - 1][f.file() - 'a'] = nullptr;
+                        temp.m_turn = temp.m_turn == Color::white ? Color::black : Color::white;
                         if (!temp.isCheck(fig->color()))
                             fields.emplace_back(i + 1, j + 'a');
                     }
@@ -292,6 +314,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                         Board temp = *this; // plitko kopiranje
                         temp.m_board[i][j] = fig;
                         temp.m_board[f.rank() - 1][f.file() - 'a'] = nullptr;
+                        temp.m_turn = temp.m_turn == Color::white ? Color::black : Color::white;
                         if (!temp.isCheck(fig->color()))
                             fields.emplace_back(i + 1, j + 'a');
                     }
@@ -309,6 +332,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                         Board temp = *this; // plitko kopiranje
                         temp.m_board[i][j] = fig;
                         temp.m_board[f.rank() - 1][f.file() - 'a'] = nullptr;
+                        temp.m_turn = temp.m_turn == Color::white ? Color::black : Color::white;
                         if (!temp.isCheck(fig->color()))
                             fields.emplace_back(i + 1, j + 'a');
                     }
@@ -325,6 +349,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                         Board temp = *this; // plitko kopiranje
                         temp.m_board[i][j] = fig;
                         temp.m_board[f.rank() - 1][f.file() - 'a'] = nullptr;
+                        temp.m_turn = temp.m_turn == Color::white ? Color::black : Color::white;
                         if (!temp.isCheck(fig->color()))
                             fields.emplace_back(i + 1, j + 'a');
                     }
