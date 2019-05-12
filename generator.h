@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <memory>
+#include <vector>
 
 #include "figures/figure.h"
 #include "figures/figure_types.h"
@@ -23,7 +24,7 @@ class Generator : public QMainWindow
 public:
     explicit Generator(QWidget *parent = nullptr);
     ~Generator();
-    void smisliNaziv(Board board, Board previousBoard1, Board previousBoard2, Board previousBoard3);
+    std::vector<Field> smisliNaziv();//Board board, Board previousBoard1, Board previousBoard2, Board previousBoard3
 
 private:
     Ui::Generator *ui;
