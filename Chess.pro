@@ -35,8 +35,7 @@ SOURCES += \
         figures/rook.cpp \
         main.cpp \
         generator.cpp \
-    board.cpp \
-    templates.cpp
+    board.cpp
 
 HEADERS += \
         field.h \
@@ -50,8 +49,7 @@ HEADERS += \
         generator.h \
     board.h \
     figures/figure_types.h \
-    color.h \
-    templates.h
+    color.h
 
 
 FORMS += \
