@@ -7,10 +7,6 @@ Figure::Figure(Color color)
 Figure::~Figure()
 {}
 
-bool Figure::isColor(const Figure *fig, Color color) {
-    return fig != nullptr && fig->color() == color;
-}
-
-bool Figure::isColor(const std::shared_ptr<Figure> &fig, Color color) {
+bool Figure::isColor(const ptrFigure &fig, Color color) {
     return fig != nullptr && fig->color() == color;
 }
