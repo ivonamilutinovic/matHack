@@ -41,7 +41,7 @@ void Generator::generateCheckmate() {
         int kralj_f = rand() % 6 + 1; // TODO ima i slucaj sa coskom !!
         board.add(std::make_shared<King>(Color::black), Field(8, kralj_f + 'a'));
 
-        switch (rand() % /*10*/2) { // XXX TEST
+        switch (rand() % /*10*/3) { // XXX TEST
         case 0: {
             /* samo kraljicom (+ odbrana kraljice) */
             int kraljica_f = kralj_f;
@@ -84,7 +84,20 @@ void Generator::generateCheckmate() {
         }
 
         case 2: {
-            //
+            /* top + konj */
+            int top_f = kralj_f + (rand() % 2 ? -1 : 1);
+            board.add(std::make_shared<Rook>(Color::white), Field(8, top_f + 'a'));
+            int konj_f = kralj_f + (top_f - kralj_f) * 2; // jos jedan korak dalje od kralja
+            board.add(std::make_shared<Knight>(Color::white), Field(6, konj_f + 'a'));
+            int crna_f = kralj_f - (top_f - kralj_f); // sa druge strane kralja
+            ptrFigure fig;
+            switch(rand() % 4) {
+            case 0: fig = std::make_shared<Pawn>(Color::black); break;
+            case 1: fig = std::make_shared<Rook>(Color::black); break;
+            case 2: fig = std::make_shared<Bishop>(Color::black); break;
+            case 3: fig = std::make_shared<Queen>(Color::black); break;
+            }
+            board.add(fig, Field(7, crna_f + 'a'));
         }
         }
 //    }
@@ -151,6 +164,7 @@ void Generator::generateCheckmate() {
     /* TODO TODO - postavljanje BELOG KRALJA (moze zajedno sa dodavanjem ostalih figura) */
 }
 
+/* XXX - ovo ne sluzi nicemu bar za sad. */
 std::vector<Field> Generator::smisliNaziv(/*Board board, Board previousBoard1, Board previousBoard2, Board previousBoard3*/) {
     std::vector<Field> array;
 
