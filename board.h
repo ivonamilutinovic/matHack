@@ -16,7 +16,9 @@ class Board : public QGraphicsWidget
 public:
     Board(Color turn = Color::white);
     Board(const Board &other); // plitko kopiranje, jer koristim std::shared_ptr koji je GENIJALAN
-    Board& operator=(Board other);
+    Board& operator=(const Board& other);
+    Board& operator= (Board&& other);
+    Board(Board&& other);
     // nije potreban destruktor, jer u stvari nije bio potreban ni poseban konstruktor kopije; on funkcionise kako bi inace i funkcionisao, ali je bio = delete u natklasi!
     /* manipulacija table - postavljanje i skidanje figura */
     void add(const std::shared_ptr<Figure> &fig, const Field & f);

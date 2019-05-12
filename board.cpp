@@ -23,11 +23,26 @@ Board::Board(const Board &other)
             m_board[i][j] = other.m_board[i][j];
 }
 
-Board& Board::operator=(Board other)
+Board& Board::operator=(const Board& other)
 {
-    std::swap(m_board, other.m_board);
-    std::swap(m_turn, other.m_turn);
+    auto temp = other;
+    std::swap(m_board, temp.m_board);
+    std::swap(m_turn, temp.m_turn);
     return *this;
+}
+
+Board& Board::operator= (Board&& other){
+
+    std::swap(other.m_board, m_board);
+    std::swap(other.m_turn, m_turn);
+    return *this;
+}
+
+Board::Board(Board&& other)
+    : m_board(std::move(other.m_board)),
+      m_turn(std::move(other.m_turn))
+{
+
 }
 
 void Board::add(const std::shared_ptr<Figure> &fig, const Field & f) {
