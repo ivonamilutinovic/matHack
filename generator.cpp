@@ -11,7 +11,7 @@ Generator::Generator(QWidget *parent) :
 {
     setMouseTracking(true);
     ui->setupUi(this);
-    srand(time(nullptr));
+    srand(static_cast<unsigned>(time(nullptr)));
 
 //    std::ifstream f{"board.txt"};
 //    board.read(f);
@@ -32,7 +32,7 @@ Generator::Generator(QWidget *parent) :
 }
 
 void Generator::generateCheckmate() {
-    bool bilo_gde = true;
+    //bool bilo_gde = true;
     std::vector<Field> dodatna_polja; // sta jos treba da se napada / brani (u slucaju bele figure na polju)
 
 //    if (rand() % 2 == 0) {
@@ -40,13 +40,13 @@ void Generator::generateCheckmate() {
         // bez gubljenja opstosti, pretpostavimo da je kralj u vrsti 8 (crnoj bazi)
         // u nekim slucajevima, moze da bude na bilo kojoj ivici - tad su dozvoljena "rotiranja" itd
         int kralj_f = rand() % 6 + 1; // TODO ima i slucaj sa coskom !!
-        board.add(std::make_shared<King>(Color::black), Field(8, kralj_f + 'a'));
+        board.add(std::make_shared<King>(Color::black), Field(8, static_cast<char>(kralj_f + 'a')));
 
-        switch (rand() % /*10*/2) { // XXX TEST
+        switch (rand() % /*10*/3) { // XXX TEST
         case 0: {
             /* samo kraljicom (+ odbrana kraljice) */
             int kraljica_f = kralj_f;
-            board.add(std::make_shared<Queen>(Color::white), Field(7, kraljica_f + 'a'));
+            board.add(std::make_shared<Queen>(Color::white), Field(7, static_cast<char>(kraljica_f + 'a')));
 
             dodatna_polja.emplace_back(7, kraljica_f + 'a');
             break;
@@ -55,12 +55,12 @@ void Generator::generateCheckmate() {
         case 1: {
             /* kraljica + lovac */
             int kraljica_f = kralj_f + (rand() % 2 ? -1 : 1);
-            board.add(std::make_shared<Queen>(Color::white), Field(6, kraljica_f + 'a'));
+            board.add(std::make_shared<Queen>(Color::white), Field(6, static_cast<char>(kraljica_f + 'a')));
 
             if (rand() % 4 == 0) {
                 /* specijalan slucaj topa pored kralja, umesto lovca - "Kill Box checkmate" */
                 int top_f = (kraljica_f > kralj_f) ? kralj_f - 1 : kralj_f + 1;
-                board.add(std::make_shared<Rook>(Color::white), Field(8, top_f + 'a'));
+                board.add(std::make_shared<Rook>(Color::white), Field(8, static_cast<char>(top_f + 'a')));
                 break;
             }
 
@@ -74,18 +74,31 @@ void Generator::generateCheckmate() {
             std::shared_ptr<Figure> newfig;
             if ((razmak == 1) && (rand() % 2)) {
                 newfig = std::make_shared<Pawn>(Color::white);
-                bilo_gde = false; // zbog pesaka ne mozemo da premestimo gornju ivicu!
+                //bilo_gde = false; // zbog pesaka ne mozemo da premestimo gornju ivicu!
             } else
                 newfig = std::make_shared<Bishop>(Color::white);
-            board.add(newfig, Field(8 - razmak, lovac_f + 'a'));
+            board.add(newfig, Field(8 - razmak, static_cast<char>(lovac_f + 'a')));
 
             if (razmak == 1)
-                dodatna_polja.emplace_back(8 - razmak, lovac_f + 'a');
+                dodatna_polja.emplace_back(8 - razmak, static_cast<char>(lovac_f + 'a'));
             break;
         }
 
         case 2: {
-            //
+            /* top + konj */
+            int top_f = kralj_f + (rand() % 2 ? -1 : 1);
+            board.add(std::make_shared<Rook>(Color::white), Field(8, static_cast<char>(top_f + 'a')));
+            int konj_f = kralj_f + (top_f - kralj_f) * 2; // jos jedan korak dalje od kralja
+            board.add(std::make_shared<Knight>(Color::white), Field(6, static_cast<char>(konj_f + 'a')));
+            int crna_f = kralj_f - (top_f - kralj_f); // sa druge strane kralja
+            ptrFigure fig;
+            switch(rand() % 4) {
+            case 0: fig = std::make_shared<Pawn>(Color::black); break;
+            case 1: fig = std::make_shared<Rook>(Color::black); break;
+            case 2: fig = std::make_shared<Bishop>(Color::black); break;
+            case 3: fig = std::make_shared<Queen>(Color::black); break;
+            }
+            board.add(fig, Field(7, static_cast<char>(crna_f + 'a')));
         }
         }
 //    }
@@ -102,7 +115,7 @@ void Generator::generateCheckmate() {
         napadaci.reserve(napadaci_svi.size());
         std::copy_if(napadaci_svi.begin(), napadaci_svi.end(), std::back_inserter(napadaci),
                      [&](const auto & nf) { return board.get(nf.rank(), nf.file()) == nullptr; });
-        unsigned long index = rand() % (napadaci.size() + 2);
+        unsigned long index = static_cast<unsigned>(rand()) % (napadaci.size() + 2);
         if (index >= napadaci.size()) {
             if (beliK)
                 continue;
@@ -152,6 +165,7 @@ void Generator::generateCheckmate() {
     /* TODO TODO - postavljanje BELOG KRALJA (moze zajedno sa dodavanjem ostalih figura) */
 }
 
+/* XXX - ovo ne sluzi nicemu bar za sad. */
 std::vector<Field> Generator::smisliNaziv(/*Board board, Board previousBoard1, Board previousBoard2, Board previousBoard3*/) {
     std::vector<Field> array;
 
