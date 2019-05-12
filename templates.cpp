@@ -1,6 +1,6 @@
 #include "templates.h"
 
-Templates::Templates()
+Templates::Templates(Board)
 {
 
 

@@ -23,12 +23,15 @@ class Generator : public QMainWindow
 public:
     explicit Generator(QWidget *parent = nullptr);
     ~Generator();
-    void smisliNaziv(Board* board);
+    void smisliNaziv(Board board, Board previousBoard1, Board previousBoard2, Board previousBoard3);
 
 private:
     Ui::Generator *ui;
     QGraphicsScene scene;
     Board board;
+    Board previousBoard1;
+    Board previousBoard2;
+    Board previousBoard3;
 };
 
 #endif // GENERATOR_H

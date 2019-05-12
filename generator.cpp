@@ -27,24 +27,24 @@ Generator::Generator(QWidget *parent) :
 
 }
 
-void smisliNaziv(Board* board){
+void smisliNaziv(Board board, Board previousBoard1, Board previousBoard2, Board previousBoard3){
 
    // nalazimo polje na kome se nalazi crni kralj
-   Field blackKing = board->findKing(Color::black);
+   Field blackKing = board.findKing(Color::black);
    // u allowedPosition nam se nalaze susedna polja za kralja
    std::vector<Field> allowedPosition = blackKing.adjacentFields();
    for(Field field: allowedPosition){
-       if(board->get(field.rank(),field.file())->color() == Color::black){
+       if(board.get(field.rank(),field.file())->color() == Color::black){
            // proveravamo da li neka bela napada tu crnu
 
            // prolazimo kroz sve bele figure na tabli
            for(int i = 1; i < 9; i++)
                 for(char j = 'a'; j < 'h' + 1; j++)
-                    if(board->get(i,j)->color() == Color::white){
+                    if(board.get(i,j)->color() == Color::white){
 
                         // zovemo metod legalMoves za sve bele figure kako bismo proverili
                         // da li neka bela napada crne koje su oko kralja
-                        std::vector<Field> moves = board->legalMoves(Field(i,j));
+                        std::vector<Field> moves = board.legalMoves(Field(i,j));
                         // proveravamo da li legalMoves vraca polje koje je jednako poljima na kome se nalaze crne figure oko kralja
                         for(Field position : moves){
 
