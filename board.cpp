@@ -4,15 +4,17 @@
 
 #include <vector>
 #include <algorithm>
+#include <QGraphicsSceneMouseEvent>
+
 
 Board::Board(Color turn)
     : QGraphicsWidget(),
       m_turn{turn}
 {
-    /*for (int i = 0; i < SIZE; ++i)
-        for (int j = 0; j < SIZE; ++j)
-            m_board[i][j] = nullptr;*/
+    firstClick = true;
+
 }
+
 
 // nalazi polja koja napadaju polje field
 std::vector<Field> Board::findFields(const Field& field) const{
@@ -21,12 +23,13 @@ std::vector<Field> Board::findFields(const Field& field) const{
     // prolazim kroz sva polja i pozivam fju move
     for(int i = 1; i < 9; i++)
         for(char j = 'a'; j < 'h' + 1; j++){
-
             // dobijamo sva polja od kojih se moze doci do m_board[i][j]
-            std::vector<Field> fields = moves(Field(i,j),false);
+            if(m_board[i][j] != nullptr){
+                std::vector<Field> fields = moves(Field(i,j),false);
 
-            if(std::find(fields.cbegin(),fields.cend(),field) != fields.cend())
-                result.push_back(Field(i,j));
+                if(std::find(fields.cbegin(),fields.cend(),field) != fields.cend())
+                    result.push_back(Field(i,j));
+            }
         }
     return result;
 }
@@ -61,6 +64,38 @@ Board& Board::operator=(Board&& other){
     std::swap(m_turn, other.m_turn);
     return *this;
 }
+
+void Board::grabMouseEvent ( QEvent * event ){
+    std::cout << "CLik1!" << std::endl;
+
+}
+
+void Board::mousePressEvent ( QGraphicsSceneMouseEvent * event ){
+
+    if(event->button() == Qt::LeftButton){
+        std::cout << "CLik!" << std::endl;
+
+        /*qreal x = point.x();
+        qreal y = point.y();
+        if(m_board[(int)(x/WIDTH)][(int)(y/WIDTH)] != nullptr){
+
+            if(firstClick){
+                previousX = (int)(x/WIDTH);
+                previousY = (char)(y/WIDTH);
+                std::cout << previousX << std::endl;
+                std::cout << previousY << std::endl;
+            }else{
+                //prevuci ovde zapamcenu figuru ako je to moguce
+                std::vector<Field> fields = legalMoves(Field(previousX+1,previousY+'a'));
+                if(std::find(fields.cbegin(),fields.cend(),Field((int)(x/WIDTH)+ 1,(char)(y/WIDTH) + 'a')) != fields.cend()){
+                    ptrFigure f = m_board[previousX][previousY];
+                    add(f,Field((int)(x/WIDTH)+1,(char)(y/WIDTH)+'a'));
+                }
+            }
+        }*/
+    }
+}
+
 
 Board::Board(Board&& other)
     : Board()
