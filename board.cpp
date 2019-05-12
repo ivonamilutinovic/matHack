@@ -14,6 +14,23 @@ Board::Board(Color turn)
             m_board[i][j] = nullptr;*/
 }
 
+// nalazi polja koja napadaju polje field
+std::vector<Field> Board::findFields(const Field& field) const{
+
+    std::vector<Field> result;
+    // prolazim kroz sva polja i pozivam fju move
+    for(int i = 1; i < 9; i++)
+        for(char j = 'a'; j < 'h' + 1; j++){
+
+            // dobijamo sva polja od kojih se moze doci do m_board[i][j]
+            std::vector<Field> fields = moves(Field(i,j),false);
+
+            if(std::find(fields.cbegin(),fields.cend(),field) != fields.cend())
+                result.push_back(Field(i,j));
+        }
+    return result;
+}
+
 Board::Board(const Board &other)
     : QGraphicsWidget(),
       m_turn{other.m_turn}
@@ -95,6 +112,7 @@ std::vector<Field> Board::legalMoves(const Field &f) const
     return {};
 }
 
+// nalazi polja ka kojima se moze kretati iz polja f
 std::vector<Field> Board::moves(const Field &f, bool legal) const
 {
     ptrFigure fig = m_board[f.rank() - 1][f.file() - 'a'];

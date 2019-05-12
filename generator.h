@@ -25,6 +25,7 @@ public:
     explicit Generator(QWidget *parent = nullptr);
     ~Generator();
     std::vector<Field> smisliNaziv();//Board board, Board previousBoard1, Board previousBoard2, Board previousBoard3
+    void generateCheckmate();
 
 private:
     Ui::Generator *ui;

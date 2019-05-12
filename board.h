@@ -36,6 +36,7 @@ public:
     bool isCheck(Color color) const; // isCheck(white) proverava da li je dat sah belom
     const ptrFigure& get(int rank, char file) const;
     inline Color turn() const { return m_turn; }
+    std::vector<Field> findFields(const Field& field) const;
 private:
    ptrFigure m_board[SIZE][SIZE];
    Color m_turn;
