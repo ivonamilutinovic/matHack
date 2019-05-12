@@ -3,9 +3,14 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <iostream>
+#include <fstream>
 #include <memory>
 
+#include "figures/figure.h"
+#include "figures/figure_types.h"
 #include "board.h"
+#include "field.h"
 
 namespace Ui {
 class Generator;
@@ -18,7 +23,7 @@ class Generator : public QMainWindow
 public:
     explicit Generator(QWidget *parent = nullptr);
     ~Generator();
-
+    void smisliNaziv(Board* board);
 
 private:
     Ui::Generator *ui;

@@ -1,10 +1,8 @@
 #include "generator.h"
 #include "ui_generator.h"
-#include <iostream>
-#include <fstream>
-#include "figures/figure.h"
-#include "figures/figure_types.h"
-Generator::Generator(QWidget *parent) :
+
+Generator::Generator(Board * board, QWidget *parent) :
+
     QMainWindow(parent),
     ui(new Ui::Generator),
     board()
@@ -28,6 +26,21 @@ Generator::Generator(QWidget *parent) :
     ui->graphicsView->show();
 
 }
+
+void smisliNaziv(Board* board){
+
+   Field blackKing = board->findKing(Color::black);
+   // u allowedPosition nam se nalaze susedna polja za kralja
+   std::vector<Field> allowedPosition = blackKing.adjacentFields();
+   for(Field field: allowedPosition){
+       if(board->get(field.rank(),field.file())->isColor(Color::black)){
+            // proveravamo da li neka bela napada tu crnu
+
+       }
+   }
+
+}
+
 
 Generator::~Generator()
 {
