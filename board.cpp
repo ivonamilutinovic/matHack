@@ -69,7 +69,7 @@ Board::Board(Board&& other)
     std::swap(m_turn, other.m_turn);
 }
 
-void Board::add(const std::shared_ptr<Figure> &fig, const Field & f) {
+void Board::add(const ptrFigure &fig, const Field & f) {
     m_board[f.rank() - 1][f.file() - 'a'] = fig;
 }
 void Board::remove(const Field & f) {
@@ -77,7 +77,7 @@ void Board::remove(const Field & f) {
 }
 
 std::vector<Field> Board::pseudolegalMoves(const Field &f) const {
-    if (Figure::isColor(m_board[f.rank() - 1][f.file() - 'a'].get(), m_turn))
+    if (Figure::isColor(m_board[f.rank() - 1][f.file() - 'a'], m_turn))
         return moves(f, false);
     return {};
 }
@@ -115,7 +115,7 @@ std::vector<Field> Board::legalMoves(const Field &f) const
 // nalazi polja ka kojima se moze kretati iz polja f
 std::vector<Field> Board::moves(const Field &f, bool legal) const
 {
-    std::shared_ptr<Figure> fig = m_board[f.rank() - 1][f.file() - 'a'];
+    ptrFigure fig = m_board[f.rank() - 1][f.file() - 'a'];
     std::vector<Field> fields;
 
     if (dynamic_cast<const Pawn*>(fig.get()) != nullptr) {
@@ -496,7 +496,7 @@ void Board::read(std::istream &f)
     }
 }
 
-const std::shared_ptr<Figure>& Board::get(int rank, char file) const
+const ptrFigure& Board::get(int rank, char file) const
 {
     return m_board[rank - 1][static_cast<int>(file - 'a')];
 }
