@@ -2,19 +2,21 @@
 #include "ui_generator.h"
 
 Generator::Generator(Board * board, QWidget *parent) :
+
     QMainWindow(parent),
-    ui(new Ui::Generator), board(board)
+    ui(new Ui::Generator),
+    board()
 {
     ui->setupUi(this);
 
     std::ifstream f{"board.txt"};
-        board->read(f);
+    board.read(f);
 
     scene.setSceneRect(6, 6, 516, 515);
     scene.setItemIndexMethod(QGraphicsScene::NoIndex);
 
-    board->setPos(4,3);
-    scene.addItem(board);
+    board.setPos(4,3);
+    scene.addItem(&board);
 
     ui->graphicsView->setScene(&scene);
     ui->graphicsView->show();

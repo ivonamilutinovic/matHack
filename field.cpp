@@ -5,46 +5,6 @@ Field::Field(int rank, char file)
       m_file(file)
 {}
 
-std::vector<Field> Field::sameRankFields() const
-{
-    std::vector<Field> result;
-    for (char file = 'a'; file <= 'h'; ++file)
-        if (file != m_file)
-            result.push_back(Field(m_rank, file));
-    return result;
-}
-
-std::vector<Field> Field::sameFileFields() const
-{
-    std::vector<Field> result;
-    for (int rank = 1; rank <= 8; ++rank)
-        if (rank != m_rank)
-            result.push_back(Field(rank, m_file));
-    return result;
-}
-
-std::vector<Field> Field::sameDiagonalFields() const
-{
-    std::vector<Field> result;
-    char file = m_file - 1;
-    int rank = m_rank - 1;
-    for (; file >= 'a' && rank >= 1; --file, --rank)
-        result.push_back(Field(rank, file));
-    file = m_file - 1;
-    rank = m_rank + 1;
-    for (; file >= 'a' && rank <= 8; --file, ++rank)
-        result.push_back(Field(rank, file));
-    file = m_file + 1;
-    rank = m_rank - 1;
-    for (; file <= 'h' && rank >= 1; ++file, --rank)
-        result.push_back(Field(rank, file));
-    file = m_file + 1;
-    rank = m_rank - 1;
-    for (; file <= 'h' && rank <= 8; ++file, ++rank)
-        result.push_back(Field(rank, file));
-    return result;
-}
-
 std::vector<Field> Field::knightJumpFields() const
 {
     std::vector<Field> result;
@@ -80,4 +40,14 @@ std::vector<Field> Field::adjacentFields() const
 bool Field::operator==(const Field &rhs) const
 {
     return (m_rank == rhs.m_rank) && (m_file == rhs.m_file);
+}
+
+std::ostream& Field::print(std::ostream &out) const
+{
+    return out << m_file << m_rank;
+}
+
+std::ostream& operator<<(std::ostream &out, const Field &f)
+{
+    return f.print(out);
 }

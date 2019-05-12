@@ -7,6 +7,7 @@ class Queen: public Figure
 {
 public:
     Queen(Color color);
+    ~Queen();
 };
 
 #endif // QUEEN_H

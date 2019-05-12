@@ -7,6 +7,7 @@ class Rook: public Figure
 {
 public:
     Rook(Color color);
+    ~Rook();
 };
 
 #endif // ROOK_H

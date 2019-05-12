@@ -15,11 +15,11 @@ class Board : public QGraphicsWidget
 {
 public:
     Board();
-    ~Board() override;
-    Board(const Board &other);
-    Board& operator=(Board board);
+    Board(const Board &other); // plitko kopiranje, jer koristim std::shared_ptr koji je GENIJALAN
+    Board& operator=(Board other);
+    // nije potreban destruktor, jer u stvari nije bio potreban ni poseban konstruktor kopije; on funkcionise kako bi inace i funkcionisao, ali je bio = delete u natklasi!
     /* manipulacija table - postavljanje i skidanje figura */
-    void add(const Figure * fig, const Field & f);
+    void add(const std::shared_ptr<Figure> &fig, const Field & f);
     void remove(const Field & f);
     /* funkcije */
     std::vector<Field> moves(const Field & f) const;
@@ -28,13 +28,12 @@ public:
                const QStyleOptionGraphicsItem *option,
                QWidget *widget) override;
     std::vector<Field> pseudolegalMoves(const Field & f) const;
-    Field findKing(Color color) const;
-    bool isCheck(Color color) const; // isCheck(white) proverada da li je dat sah belom
     std::vector<Field> legalMoves(const Field &f) const;
-    void free();
-
+    Field findKing(Color color) const;
+    bool isCheck(Color color) const; // isCheck(white) proverava da li je dat sah belom
+    const std::shared_ptr<Figure>& get(int rank, char file) const;
 private:
-   const Figure * m_board[8][8];
+   std::shared_ptr<Figure> m_board[8][8];
    std::vector<Field> moves(const Field & f, bool legal) const;
 };
 

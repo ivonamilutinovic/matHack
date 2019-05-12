@@ -7,6 +7,7 @@ class King: public Figure
 {
 public:
     King(Color color);
+    ~King();
 };
 
 #endif // KING_H

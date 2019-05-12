@@ -7,6 +7,7 @@ class Pawn: public Figure
 {
 public:
     Pawn(Color color);
+    ~Pawn();
 };
 
 #endif // PAWN_H

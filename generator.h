@@ -5,6 +5,7 @@
 #include <QGraphicsScene>
 #include <iostream>
 #include <fstream>
+#include <memory>
 
 #include "figures/figure.h"
 #include "figures/figure_types.h"
@@ -20,14 +21,14 @@ class Generator : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit Generator(Board* board, QWidget *parent = nullptr);
+    explicit Generator(QWidget *parent = nullptr);
     ~Generator();
     void smisliNaziv(Board* board);
 
 private:
     Ui::Generator *ui;
     QGraphicsScene scene;
-    Board *board;
+    Board board;
 };
 
 #endif // GENERATOR_H

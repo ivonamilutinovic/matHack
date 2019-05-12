@@ -3,12 +3,12 @@
 #include "board.h"
 #include "figures/figure_types.h"
 #include <iostream>
+#include <fstream>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Board *board = new Board();
-    Generator w(board);
+    Generator w;
     w.show();
 
     return a.exec();
