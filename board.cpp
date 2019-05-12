@@ -9,17 +9,17 @@ Board::Board(Color turn)
     : QGraphicsWidget(),
       m_turn{turn}
 {
-    for (int i = 0; i < 8; ++i)
-        for (int j = 0; j < 8; ++j)
-            m_board[i][j] = nullptr;
+    /*for (int i = 0; i < SIZE; ++i)
+        for (int j = 0; j < SIZE; ++j)
+            m_board[i][j] = nullptr;*/
 }
 
 Board::Board(const Board &other)
     : QGraphicsWidget(),
       m_turn{other.m_turn}
 {
-    for (int i = 0; i < 8; ++i)
-        for (int j = 0; j < 8; ++j)
+    for (int i = 0; i < SIZE; ++i)
+        for (int j = 0; j < SIZE; ++j)
             m_board[i][j] = other.m_board[i][j];
 }
 
@@ -38,18 +38,18 @@ Board& Board::operator=(const Board& other)
     return *this;
 }
 
-Board& Board::operator= (Board&& other){
+Board& Board::operator=(Board&& other){
 
-    std::swap(other.m_board, m_board);
-    std::swap(other.m_turn, m_turn);
+    std::swap(m_board, other.m_board);
+    std::swap(m_turn, other.m_turn);
     return *this;
 }
 
 Board::Board(Board&& other)
-    : m_board(std::move(other.m_board)),
-      m_turn(std::move(other.m_turn))
+    : Board()
 {
-
+    std::swap(m_board, other.m_board);
+    std::swap(m_turn, other.m_turn);
 }
 
 void Board::add(const std::shared_ptr<Figure> &fig, const Field & f) {
@@ -67,8 +67,8 @@ std::vector<Field> Board::pseudolegalMoves(const Field &f) const {
 
 Field Board::findKing(Color color) const
 {
-    for (int i = 0; i < 8; ++i)
-        for (int j = 0; j < 8; ++j)
+    for (int i = 0; i < SIZE; ++i)
+        for (int j = 0; j < SIZE; ++j)
             if (Figure::isColor(m_board[i][j], color) && dynamic_cast<const King *>(m_board[i][j].get()) != nullptr)
                 return Field(i + 1, static_cast<char>(j + 'a'));
     throw std::runtime_error{"Nema kralja, care!"};
@@ -77,8 +77,8 @@ Field Board::findKing(Color color) const
 bool Board::isCheck(Color color) const
 {
     Field king = findKing(color);
-    for (int i = 0; i < 8; ++i)
-        for (int j = 0; j < 8; ++j)
+    for (int i = 0; i < SIZE; ++i)
+        for (int j = 0; j < SIZE; ++j)
             if (m_board[i][j] != nullptr && m_board[i][j]->color() != color)
             {
                 std::vector<Field> fields = pseudolegalMoves(Field(i + 1, static_cast<char>(j + 'a')));
@@ -150,7 +150,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                 }
                 else fields.emplace_back(f.rank() - 1, f.file() + 1);
             }
-        } else if (fig->color() == Color::white && f.rank() < 8) {
+        } else if (fig->color() == Color::white && f.rank() < SIZE) {
             if (m_board[f.rank()][f.file() - 'a'] == nullptr) {
                 if (legal)
                 {
@@ -258,7 +258,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                 }
                 else break;
             /* proverava dokle moze da ide udesno po toj red */
-            for (int i = f.rank() - 1, j = static_cast<int>(f.file() - 'a') + 1; j < 8; ++j)
+            for (int i = f.rank() - 1, j = static_cast<int>(f.file() - 'a') + 1; j < SIZE; ++j)
                 if (!Figure::isColor(m_board[i][j], fig->color())) {
                     if (legal)
                     {
@@ -293,7 +293,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                 }
                 else break;
             /* proverava dokle moze da ide nagore po toj liniji */
-            for (int i = f.rank(), j = static_cast<int>(f.file() - 'a'); i < 8; ++i)
+            for (int i = f.rank(), j = static_cast<int>(f.file() - 'a'); i < SIZE; ++i)
                 if (!Figure::isColor(m_board[i][j], fig->color())) {
                     if (legal)
                     {
@@ -329,7 +329,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                 }
                 else break;
             /* proverava dokle moze da ide udesno i nadole po dijagonali */
-            for (int i = f.rank() - 2, j = static_cast<int>(f.file() - 'a') + 1; i >= 0 && j < 8; --i, ++j)
+            for (int i = f.rank() - 2, j = static_cast<int>(f.file() - 'a') + 1; i >= 0 && j < SIZE; --i, ++j)
                 if (!Figure::isColor(m_board[i][j], fig->color())) {
                     if (legal)
                     {
@@ -347,7 +347,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                 else break;
 
             /* proverava dokle moze da ide ulevo i nagore po dijagonali */
-            for (int i = f.rank(), j = static_cast<int>(f.file() - 'a') - 1; i < 8 && j >= 0; ++i, --j)
+            for (int i = f.rank(), j = static_cast<int>(f.file() - 'a') - 1; i < SIZE && j >= 0; ++i, --j)
                 if (!Figure::isColor(m_board[i][j], fig->color())) {
                     if (legal)
                     {
@@ -364,7 +364,7 @@ std::vector<Field> Board::moves(const Field &f, bool legal) const
                 }
                 else break;
             /* proverava dokle moze da ide udesno i nagore po dijagonali */
-            for (int i = f.rank(), j = static_cast<int>(f.file() - 'a') + 1; i < 8 && j < 8; ++i, ++j)
+            for (int i = f.rank(), j = static_cast<int>(f.file() - 'a') + 1; i < SIZE && j < SIZE; ++i, ++j)
                 if (!Figure::isColor(m_board[i][j], fig->color())) {
                     if (legal)
                     {
@@ -389,8 +389,8 @@ void Board::paint(QPainter *painter,
                    const QStyleOptionGraphicsItem *,
                    QWidget *){
 
-    for(int i = 0; i < 8; i++)
-        for(int j = 0; j < 8; j++){
+    for(int i = 0; i < SIZE; i++)
+        for(int j = 0; j < SIZE; j++){
             // postavaljmo boju polja u zavisnosti od pozicije
             if((i + j) % 2 == 0)
                 painter->setBrush(QColor(142,113,193));

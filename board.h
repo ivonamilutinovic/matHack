@@ -7,9 +7,10 @@
 #include "figures/figure.h"
 #include "field.h"
 #include <memory>
-
-#define WIDTH 65
 #include <iostream>
+
+const int WIDTH = 65;
+const int SIZE = 8;
 
 class Board : public QGraphicsWidget
 {
@@ -36,7 +37,7 @@ public:
     const std::shared_ptr<Figure>& get(int rank, char file) const;
     inline Color turn() const { return m_turn; }
 private:
-   std::shared_ptr<Figure> m_board[8][8];
+   std::shared_ptr<Figure> m_board[SIZE][SIZE];
    Color m_turn;
    std::vector<Field> moves(const Field & f, bool legal) const;
 };
