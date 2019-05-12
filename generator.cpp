@@ -6,6 +6,7 @@ Generator::Generator(QWidget *parent) :
     ui(new Ui::Generator),
     board()
 {
+    setMouseTracking(true);
     ui->setupUi(this);
 
     std::ifstream f{"board.txt"};

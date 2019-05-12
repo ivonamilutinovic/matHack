@@ -12,6 +12,7 @@
 const int WIDTH = 65;
 const int SIZE = 8;
 
+
 class Board : public QGraphicsWidget
 {
 public:
@@ -37,10 +38,15 @@ public:
     const ptrFigure& get(int rank, char file) const;
     inline Color turn() const { return m_turn; }
     std::vector<Field> findFields(const Field& field) const;
+    virtual void mousePressEvent ( QGraphicsSceneMouseEvent * event ) override;
+    virtual void grabMouseEvent ( QEvent * event ) override;
 private:
    ptrFigure m_board[SIZE][SIZE];
    Color m_turn;
    std::vector<Field> moves(const Field & f, bool legal) const;
+   int previousX;
+   char previousY;
+   bool firstClick;
 };
 
 #endif // BOARD_H
