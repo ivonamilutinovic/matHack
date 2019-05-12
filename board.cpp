@@ -23,6 +23,13 @@ Board::Board(const Board &other)
             m_board[i][j] = other.m_board[i][j];
 }
 
+// copy-and-swap idiom - da bi operator dodele bio
+// bezbedan prilikom pojave izuzetaka, obavezno je
+// implementirati ga na ovaj nacin:
+// 1. Pravi se privremena kopija objekta (poziva se
+//    konstruktor kopije)
+// 2. Zamene se sve clanske promenljive u *this i
+//    privremenoj kopiji
 Board& Board::operator=(const Board& other)
 {
     auto temp = other;
